@@ -38,21 +38,44 @@ arduino-cli compile --fqbn esp32:esp32:esp32 ./FT_V9.1_SD_Ignore
 
 ## Upload
 
-Confirm the board is on `/dev/ttyUSB0` first:
+**`../SteinerGate`'s background logger holds `/dev/ttyUSB0` open** (the
+`steinergate-watchdog` systemd service, running on this same machine, owns
+the serial port so it can log tunnel data continuously — see
+[`../SteinerGate/src/LoggingService/README.md`](../SteinerGate/src/LoggingService/README.md)).
+Its Worker process needs to be paused before `esptool` can do the
+bootloader handshake, or the upload just fails/hangs with port-contention
+errors. Use `upload.sh` for this rather than a bare `arduino-cli upload` —
+it stops `steinergate-watchdog`, uploads, and restarts it afterward no
+matter how the upload turns out (success, failure, or Ctrl-C):
 
 ```bash
-arduino-cli board list
+cd ~/Code/SteinerDuino
+./upload.sh
 ```
 
-Then:
+Optional args if you need to override the defaults:
+`./upload.sh [sketch_dir] [port] [fqbn]` — e.g.
+`./upload.sh ./FT_V9.1_SD_Ignore /dev/ttyUSB0 esp32:esp32:esp32`.
+
+Stopping/starting `steinergate-watchdog` doesn't require `sudo` for this
+user (verified — polkit already allows it for the active session). If that
+ever changes, the two calls in `upload.sh` (`systemctl stop`/`systemctl
+start`) are the only place `sudo` would need to be added.
+
+To upload without the wrapper (e.g. the service is already stopped for
+some other reason), confirm the board's port first with
+`arduino-cli board list`, then:
 
 ```bash
 arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32:esp32 ./FT_V9.1_SD_Ignore
 ```
 
-(Combine both in one step with `arduino-cli compile --upload`.)
-
 ## Serial monitor
+
+Same port-contention issue as upload applies here — stop `steinergate-watchdog`
+first (`systemctl stop steinergate-watchdog`), or the monitor and the logger
+Worker will fight over the port. Restart the service (`systemctl start
+steinergate-watchdog`) when done.
 
 ```bash
 arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=115200

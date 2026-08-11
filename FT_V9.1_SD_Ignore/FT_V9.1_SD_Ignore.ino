@@ -59,8 +59,8 @@ Pushbutton BTN_Black(OLED_BUTTON_PIN);
  * These variables set the min. and max. setpoints for the draft system,
  * as controlled by the knob/POT.
  */
-#define DRAFT_CTRL_MIN_SETPOINT 0.06 // Units in inches of water column
-#define DRAFT_CTRL_MAX_SETPOINT 0.11
+#define DRAFT_CTRL_MIN_SETPOINT 0.05 // Units in inches of water column
+#define DRAFT_CTRL_MAX_SETPOINT 0.10
 /****** /Draft Potentiometer  ******/
 
 /******  OLED display  ******/
@@ -206,7 +206,8 @@ void SensorSetup(){
   SensorArray[5] = S5_OpenAdcChannel   = new AnalogSensor(5, 1, 0, 5);
   SensorArray[6] = S6_OpenAdcChannel   = new AnalogSensor(5, 1, 0, 5);
   SensorArray[7] = S7_OpenAdcChannel   = new AnalogSensor(5, 1, 0, 5);
-  SensorArray[8] = S8_DraftPressure    = new AnalogSensor(5, 1.1125, -0.015, 10); // Last cal. 2021-03-23 - Kaden
+  //SensorArray[8] = S8_DraftPressure    = new AnalogSensor(5, 1.1125, -0.015, 10); // Last cal. 2021-03-23 - Kaden
+  SensorArray[8] = S8_DraftPressure    = new AnalogSensor(5, 1, 0, 10); // 2026-08-11 Reset the cal
 }
 
 void SerialInit(){
