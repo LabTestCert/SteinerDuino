@@ -1,0 +1,62 @@
+# KEYWORD1 is generally used for the classes that you define in your library.
+# KEYWORD2 is used for the public member functions of the class. Basically these are the class' methods.
+# LITERAL1 is used for any #defines that are relevant for the user of the library.
+
+
+
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+# Class
+Azande	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+# Functions
+begin	KEYWORD2
+readStream	KEYWORD2
+send	KEYWORD2
+add	KEYWORD2
+notify	KEYWORD2
+clear	KEYWORD2
+send	KEYWORD2
+
+
+######################################
+# Constants (LITERAL1)
+#######################################
+
+# Macros
+define_target_info	LITERAL1
+define_void_command	LITERAL1
+define_bool_command	LITERAL1
+define_int_command	LITERAL1
+define_double_command	LITERAL1
+define_text_command	LITERAL1
+define_enum_command	LITERAL1
+define_enum_item	LITERAL1
+
+define_bool_event	LITERAL1
+define_int_event	LITERAL1
+define_double_event	LITERAL1
+define_text_event	LITERAL1
+
+define_void_command_id	LITERAL1
+define_bool_command_id	LITERAL1
+define_int_command_id	LITERAL1
+define_double_command_id LITERAL1
+define_text_command_id	LITERAL1
+define_enum_command_id	LITERAL1
+
+define_bool_event_id	LITERAL1
+define_int_event_id	LITERAL1
+define_double_event_id	LITERAL1
+define_text_event_id	LITERAL1
+
